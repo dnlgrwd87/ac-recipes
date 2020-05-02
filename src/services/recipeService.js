@@ -37,7 +37,7 @@ const getAvailableRecipes = async (req, res) => {
     res.json(availableRecipes);
 };
 
-const _getRecipeMaterials = async (req, res) => {
+const _getRecipeMaterials = async () => {
     const query = `SELECT r.name AS recipe_name, r.image AS recipe_image, r.alt_image AS recipe_alt_image, r.category, m.name AS material_name, m.image AS material_image, m.alt_image AS material_alt_image, rm.amount
                     FROM recipe r
                     JOIN recipe_material rm on (r.id = rm.recipe_id)
@@ -70,6 +70,8 @@ const _formatRecipeMaterials = recipeMaterials => {
 };
 
 const _validateRequestBody = body => {
+    if (Object.keys(body).length === 0) return false;
+    if (body.length === 0) return false;
     for (const materialCount of body) {
         if (Object.keys(materialCount).some(key => key !== 'name' && key !== 'amount')) {
             return false;

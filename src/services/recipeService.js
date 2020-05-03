@@ -2,13 +2,13 @@ const { db } = require('../database');
 const { formatRecipeMaterials } = require('../helpers/formatResponse');
 
 const getAllRecipes = async () => {
-    const query = 'SELECT * FROM recipe ORDER BY id ASC';
+    const query = 'SELECT id, name, category, image, alt_image AS altImage FROM recipe ORDER BY id ASC';
     const { rows } = await db.query(query);
     return rows;
 };
 
 const getRecipeById = async recipeId => {
-    const text = 'SELECT * FROM recipe WHERE id = $1 ORDER BY id ASC';
+    const text = 'SELECT id, name, category, image, alt_image AS altImage FROM recipe WHERE id = $1 ORDER BY id ASC';
     const values = [recipeId];
     const query = { text, values };
     const { rows } = await db.query(query);

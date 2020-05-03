@@ -4,7 +4,7 @@ const { validateRequestBody } = require('../helpers/validation');
 const getAll = async (req, res) => {
     try {
         let recipes;
-        if (req.query && req.query.materials) {
+        if (req.query && req.query.materials === 'true') {
             recipes = await recipeService.getRecipeMaterials();
         } else {
             recipes = await recipeService.getAllRecipes();

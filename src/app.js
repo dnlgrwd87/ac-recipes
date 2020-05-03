@@ -10,7 +10,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 const recipeRoutes = require('./routes/recipeRoutes');
+const materialRoutes = require('./routes/materialRoutes');
 
-app.use('/', recipeRoutes);
+const swaggerUi = require('swagger-ui-express');
+const { swaggerDocument } = require('./swagger-ui/swagger');
+
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/recipes', recipeRoutes);
+app.use('/materials', materialRoutes);
 
 module.exports = app;

@@ -1,13 +1,13 @@
 const { db } = require('../database');
 
 const getAllMaterials = async () => {
-    const query = 'SELECT * FROM material ORDER BY id ASC';
+    const query = 'SELECT id, name, image, alt_image AS altImage FROM material ORDER BY id ASC';
     const { rows } = await db.query(query);
     return rows;
 };
 
 const getMaterialById = async materialId => {
-    const text = 'SELECT * FROM material WHERE id = $1 ORDER BY id ASC';
+    const text = 'SELECT id, name, image, alt_image AS altImage FROM material WHERE id = $1 ORDER BY id ASC';
     const values = [materialId];
     const query = { text, values };
     const { rows } = await db.query(query);

@@ -2,9 +2,12 @@ const { db } = require('../database');
 const { formatRecipeMaterials } = require('../helpers/formatResponse');
 
 const getAllRecipes = async () => {
-    const query = 'SELECT id, name, category, image, alt_image AS altImage FROM recipe ORDER BY id ASC';
+    const query = 'SELECT id, name, category, image, alt_image FROM recipe ORDER BY id ASC';
     const { rows } = await db.query(query);
-    return rows;
+    return rows.map(row => {
+        const { alt_image, ...recipe } = row;
+        return { ...recipe, altImage: alt_image };
+    });
 };
 
 const getRecipeById = async recipeId => {

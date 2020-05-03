@@ -18,5 +18,6 @@ const { swaggerDocument } = require('./swagger-ui/swagger');
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use('/recipes', recipeRoutes);
 app.use('/materials', materialRoutes);
+app.use('*', (req, res) => res.redirect('/docs'));
 
 module.exports = app;

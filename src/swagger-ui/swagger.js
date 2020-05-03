@@ -26,7 +26,6 @@ module.exports.swaggerDocument = {
                         name: 'materials',
                         'in': 'query',
                         description: 'If true, return all materials associated with each recipe',
-                        required: true,
                         schema: {
                             type: 'string'
                         }

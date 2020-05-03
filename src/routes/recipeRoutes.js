@@ -1,9 +1,12 @@
 const router = require('express').Router();
-const { getAllRecipes, getAllMaterials, getRecipeMaterials, getAvailableRecipes } = require('../services/recipeService');
+const {
+    getAll,
+    getOne,
+    getAvailableRecipes
+} = require('../controllers/recipeController');
 
-router.get('/recipes', getAllRecipes);
-router.get('/materials', getAllMaterials);
-router.get('/recipe-materials', getRecipeMaterials);
-router.post('/available-recipes', getAvailableRecipes);
+router.get('/', getAll);
+router.get('/:id', getOne);
+router.post('/available', getAvailableRecipes);
 
 module.exports = router;

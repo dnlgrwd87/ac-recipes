@@ -8,12 +8,16 @@ const getAllRecipes = async () => {
 };
 
 const getRecipeById = async recipeId => {
-    const text = 'SELECT id, name, category, image, alt_image AS altImage FROM recipe WHERE id = $1 ORDER BY id ASC';
+    const text = `SELECT r.name AS recipe_name, r.image AS recipe_image, r.alt_image AS recipe_alt_image, r.category, m.name AS material_name, m.image AS material_image, m.alt_image AS material_alt_image, rm.amount
+    FROM recipe r
+    JOIN recipe_material rm on (r.id = rm.recipe_id)
+    JOIN material m on (m.id = rm.material_id)
+    WHERE r.id = $1`;
     const values = [recipeId];
     const query = { text, values };
     const { rows } = await db.query(query);
-    if (!rows[0]) throw new Error('Recipe not found');
-    return rows[0];
+    if (!rows.length) throw new Error('Recipe not found');
+    return formatRecipeMaterials(rows)[0];
 };
 
 const getRecipeMaterials = async () => {
